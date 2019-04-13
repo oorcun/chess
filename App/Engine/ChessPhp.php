@@ -66,7 +66,7 @@ class ChessPhp implements RuleEngine
 			$this->engine = GlobalCache::get("game");
 		} else {
 			TimeKeeper::start("Construction");
-			$this->engine = (new Chess())->loadPgn(GameState::getPgn());
+			$this->engine = $this->loadGame();
 			TimeKeeper::stop("Construction");
 			GlobalCache::put("game", $this->engine);
 		}
@@ -169,5 +169,23 @@ class ChessPhp implements RuleEngine
 			}
 			return $piece;
 		}, self::SQUARE_NAMES);
+	}
+
+	/**
+	 * Loads and returns the game.
+	 *
+	 * @throws \Exception
+	 * @return \Ryanhs\Chess\Chess
+	 */
+	protected function loadGame()
+	{
+		try {
+			if (GameState::boardSet()) {
+				return new Chess(GameState::getFen());
+			}
+			return (new Chess())->loadPgn(GameState::getPgn());
+		} catch (\Exception $expression) {
+			throw new \Exception("Unable to load game.");
+		}
 	}
 }

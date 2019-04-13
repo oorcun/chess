@@ -60,6 +60,7 @@ class AlphaBeta implements SearchStrategy
 	 * Makes a move.
 	 * Must return the move in SAN.
 	 *
+	 * @throws \Exception
 	 * @return string
 	 */
 	public function makeMove()
@@ -99,13 +100,20 @@ class AlphaBeta implements SearchStrategy
 		$current["turn"] = $this->engine->getTurn();
 		$current["score"] = $current["turn"] == "white" ? PHP_INT_MIN : PHP_INT_MAX;
 
-        foreach ($this->engine->getPossibleMoves() as $move) {
+		$moves = $this->engine->getPossibleMoves();
+		if ( ! $moves) {
+			return $this->evaluator->evaluate();
+		}
+
+        foreach ($moves as $move) {
         	$this->engine->makeMove($move);
+        	// \App\Response::addDebug($depth . " " . $move);
         	if ($current["turn"] == "white") {
         		$alpha = $current["score"] = max($current["score"], $this->minimax($depth - 1, $alpha, $beta));
         	} else {
             	$beta = $current["score"] = min($current["score"], $this->minimax($depth - 1, $alpha, $beta));
         	}
+        	// \App\Response::addDebug($current["score"]);
             if ($this->depth == $depth) {
             	$current["move"] = $move;
             	$this->updateBest($current);

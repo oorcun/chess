@@ -11,9 +11,7 @@ try {
 
 	TimeKeeper::start("Total");
 
-	GameState::setFen($_POST["fen"] ?? "");
-	GameState::setPgn($_POST["pgn"] ?? "");
-	GameState::setHistory($_POST["history"] ?? []);
+	GameState::set();
 
 	Resolver::setConfiguration();
 	Resolver::setStrategy();

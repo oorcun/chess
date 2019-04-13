@@ -12,6 +12,9 @@ $(document).ready(function() {
 	// Contains who (if any) resigned from game, "white" or "black".
 	var resigned;
 
+	// True if the board set up by FEN.
+	var board_set;
+
 	// Write last move to screen
 	var write_move = function() {
 		var history = game.history();
@@ -44,6 +47,19 @@ $(document).ready(function() {
 		$("#status").text("Playing");
 		$("#resign").prop("disabled", false);
 		resigned = false;
+		board_set = false;
+	};
+
+	// Set up the game.
+	var set_game = function(fen) {
+		board.position(fen, false);
+		game = new Chess(fen);
+		board.orientation(player);
+		$("#history").empty();
+		$("#status").text("Playing");
+		$("#resign").prop("disabled", false);
+		resigned = false;
+		board_set = true;
 	};
 
 	// Update the status section.
@@ -76,7 +92,8 @@ $(document).ready(function() {
             data: {
             	fen: game.fen(),
             	pgn: game.pgn(),
-            	history: game.history()
+            	history: game.history(),
+            	board_set: board_set
             },
             dataType: "json",
             success: function(data) {
@@ -86,7 +103,7 @@ $(document).ready(function() {
             	}
                 $("#time").html(html);
                 if ( ! data.move) {
-                	resigned = player == "white" ? "black" : "white"; // If computer can't found move, then it is certain loss.
+                	resigned = player == "white" ? "black" : "white"; // If computer can't find move, then it is certain loss.
                 } else {
                 	game.move(data.move);
 					board.position(game.fen());
@@ -94,7 +111,7 @@ $(document).ready(function() {
                 }
 				update_status();
 				$("#spinner").hide();
-				// debug(data);
+				debug(data);
             },
             error: function(data) {
                 alert("Error: " + data.responseText);
@@ -160,7 +177,7 @@ $(document).ready(function() {
 	$("#start-as-black").on("click", function() {
 		player = "black";
 		initialize_game();
-		make_move();
+		setTimeout(make_move, 200); // Wait for board to draw.
 	});
 
 	// Resign from game.
@@ -168,6 +185,24 @@ $(document).ready(function() {
 		$(this).prop("disabled", true);
 		resigned = player;
 		update_status();
+	});
+
+	// Set game and play as white.
+	$("#play-as-white").on("click", function() {
+		player = "white";
+		set_game($("#fen").val());
+		if (game.turn() == "b") {
+			setTimeout(make_move, 200); // Wait for board to draw.
+		}
+	});
+
+	// Set game and play as black.
+	$("#play-as-black").on("click", function() {
+		player = "black";
+		set_game($("#fen").val());
+		if (game.turn() == "w") {
+			setTimeout(make_move, 200); // Wait for board to draw.
+		}
 	});
 
 });

@@ -18,22 +18,22 @@
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="card border-danger mb-3"><div class="card-header"><h1 class="text-center">Play chess against PHP</h1></div></div>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-sm-3">
 					<input type="button" id="start-as-white" value="Start as white" class="btn btn-danger btn-lg btn-block" />
 					<input type="button" id="start-as-black" value="Start as black" class="btn btn-danger btn-lg btn-block" />
 					<input type="button" id="resign" value="Resign" class="btn btn-danger btn-lg btn-block" disabled />
+					<div class="form-group">
+						<input class="form-control form-control-lg" type="text" placeholder="FEN" id="fen">
+						<input type="button" id="play-as-white" value="Play as white" class="btn btn-danger btn-lg btn-block" />
+						<input type="button" id="play-as-black" value="Play as black" class="btn btn-danger btn-lg btn-block" />
+					</div>
 					<div id="spinner" class="text-center mt-5" style="display:none;"><div class="spinner-border text-danger"></div></div>
 				</div>
 				<div class="col-sm-6">
 					<div id="board"></div>
 				</div>
 				<div class="col-sm-3">
-					<!-- <div id="debug" class="alert alert-info">Debug info</div> -->
+					<div id="debug" class="alert alert-info">Debug info</div>
 					<div id="status" class="alert alert-danger">Waiting</div>
 					<div id="time" class="alert alert-danger"></div>
 					<div id="history" class="alert alert-danger"></div>

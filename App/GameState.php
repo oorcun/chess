@@ -27,33 +27,21 @@ class GameState
 	protected static $history;
 
 	/**
-	 * Sets the FEN.
+	 * Checks if board set up as other than starting position.
 	 *
-	 * @param string $fen
+	 * @var boolean
 	 */
-	public static function setFen($fen)
-	{
-		self::$fen = $fen;
-	}
+	protected static $boardSet;
 
 	/**
-	 * Gets the FEN.
-	 *
-	 * @return string
+	 * Sets the game state.
 	 */
-	public static function getFen()
+	public static function set()
 	{
-		return self::$fen;
-	}
-
-	/**
-	 * Sets the PGN.
-	 *
-	 * @param string $pgn
-	 */
-	public static function setPgn($pgn)
-	{
-		self::$pgn = $pgn;
+		self::$pgn = $_POST["pgn"] ?? "";
+		self::$fen = $_POST["fen"] ?? "";
+		self::$history = $_POST["history"] ?? "";
+		self::$boardSet = $_POST["board_set"] ?? false;
 	}
 
 	/**
@@ -64,6 +52,16 @@ class GameState
 	public static function getPgn()
 	{
 		return self::$pgn;
+	}
+
+	/**
+	 * Gets the FEN.
+	 *
+	 * @return string
+	 */
+	public static function getFen()
+	{
+		return self::$fen;
 	}
 
 	/**
@@ -84,5 +82,15 @@ class GameState
 	public static function getHistory()
 	{
 		return self::$history;
+	}
+
+	/**
+	 * Checks if board set up as other than starting position.
+	 *
+	 * @return boolean
+	 */
+	public static function boardSet()
+	{
+		return self::$boardSet;
 	}
 }
