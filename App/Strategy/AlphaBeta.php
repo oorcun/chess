@@ -107,13 +107,11 @@ class AlphaBeta implements SearchStrategy
 
         foreach ($moves as $move) {
         	$this->engine->makeMove($move);
-        	// \App\Response::addDebug($depth . " " . $move);
         	if ($current["turn"] == "white") {
         		$alpha = $current["score"] = max($current["score"], $this->minimax($depth - 1, $alpha, $beta));
         	} else {
             	$beta = $current["score"] = min($current["score"], $this->minimax($depth - 1, $alpha, $beta));
         	}
-        	// \App\Response::addDebug($current["score"]);
             if ($this->depth == $depth) {
             	$current["move"] = $move;
             	$this->updateBest($current);

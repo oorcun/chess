@@ -180,12 +180,19 @@ class ChessPhp implements RuleEngine
 	protected function loadGame()
 	{
 		try {
-			if (GameState::boardSet()) {
+			if (GameState::getConstructType() == "pgn") {
+				$engine = (new Chess())->loadPgn(GameState::getPgn());
+				if ( ! $engine) {
+					throw new \Exception("Unable to load PGN.");
+				}
+				return $engine;
+			} else if (GameState::getConstructType() == "fen") {
 				return new Chess(GameState::getFen());
+			} else {
+				throw new \Exception("Unrecognized construct type.");
 			}
-			return (new Chess())->loadPgn(GameState::getPgn());
 		} catch (\Exception $expression) {
-			throw new \Exception("Unable to load game.");
+			throw new \Exception($expression->getMessage());
 		}
 	}
 }

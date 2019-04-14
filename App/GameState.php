@@ -27,11 +27,12 @@ class GameState
 	protected static $history;
 
 	/**
-	 * Checks if board set up as other than starting position.
+	 * Construction type of game as "fen" or "pgn".
+	 * This will be passed to the rule engine to determine how it will construct the game.
 	 *
-	 * @var boolean
+	 * @var string
 	 */
-	protected static $boardSet;
+	protected static $constructType;
 
 	/**
 	 * Sets the game state.
@@ -41,7 +42,7 @@ class GameState
 		self::$pgn = $_POST["pgn"] ?? "";
 		self::$fen = $_POST["fen"] ?? "";
 		self::$history = $_POST["history"] ?? "";
-		self::$boardSet = $_POST["board_set"] ?? false;
+		self::$constructType = $_POST["construct_type"] ?? "";
 	}
 
 	/**
@@ -65,16 +66,6 @@ class GameState
 	}
 
 	/**
-	 * Sets the history.
-	 *
-	 * @param array $history
-	 */
-	public static function setHistory($history)
-	{
-		self::$history = $history;
-	}
-
-	/**
 	 * Gets the history.
 	 *
 	 * @return array
@@ -85,12 +76,12 @@ class GameState
 	}
 
 	/**
-	 * Checks if board set up as other than starting position.
+	 * Gets the construction type of game as "fen" or "pgn".
 	 *
-	 * @return boolean
+	 * @return string
 	 */
-	public static function boardSet()
+	public static function getConstructType()
 	{
-		return self::$boardSet;
+		return self::$constructType;
 	}
 }

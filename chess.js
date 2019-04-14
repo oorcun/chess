@@ -12,9 +12,6 @@ $(document).ready(function() {
 	// Contains who (if any) resigned from game, "white" or "black".
 	var resigned;
 
-	// True if the board set up by FEN.
-	var board_set;
-
 	// Write last move to screen
 	var write_move = function() {
 		var history = game.history();
@@ -47,7 +44,6 @@ $(document).ready(function() {
 		$("#status").text("Playing");
 		$("#resign").prop("disabled", false);
 		resigned = false;
-		board_set = false;
 	};
 
 	// Set up the game.
@@ -59,7 +55,6 @@ $(document).ready(function() {
 		$("#status").text("Playing");
 		$("#resign").prop("disabled", false);
 		resigned = false;
-		board_set = true;
 	};
 
 	// Update the status section.
@@ -93,7 +88,7 @@ $(document).ready(function() {
             	fen: game.fen(),
             	pgn: game.pgn(),
             	history: game.history(),
-            	board_set: board_set
+            	construct_type: $(".construct-type:checked").val()
             },
             dataType: "json",
             success: function(data) {
@@ -111,7 +106,7 @@ $(document).ready(function() {
                 }
 				update_status();
 				$("#spinner").hide();
-				debug(data);
+				// debug(data);
             },
             error: function(data) {
                 alert("Error: " + data.responseText);

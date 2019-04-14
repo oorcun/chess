@@ -99,7 +99,12 @@ class Minimax implements SearchStrategy
 		$current["turn"] = $this->engine->getTurn();
 		$current["score"] = $current["turn"] == "white" ? PHP_INT_MIN : PHP_INT_MAX;
 
-        foreach ($this->engine->getPossibleMoves() as $move) {
+		$moves = $this->engine->getPossibleMoves();
+		if ( ! $moves) {
+			return $this->evaluator->evaluate();
+		}
+
+        foreach ($moves as $move) {
             $this->engine->makeMove($move);
             $current["score"] =
             	$current["turn"] == "white" ?
