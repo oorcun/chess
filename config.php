@@ -44,7 +44,7 @@ return [
     |
     */
 
-	"pointValue" => "kaufman",
+	"pointValue" => "stockfish",
 
 
 	/*

@@ -9,4 +9,12 @@ return [
 
 	"kaufman" => App\Value\LarryKaufman::class,
 
+
+	/*
+    | Stockfish chess engine's middle game values at
+    | https://github.com/daylen/stockfish-mac/blob/master/Chess/value.h
+    */
+
+	"stockfish" => App\Value\Stockfish::class
+
 ];

@@ -156,7 +156,7 @@ class ChessPhp implements RuleEngine
 	/**
 	 * Gets the pieces by position.
 	 * For adaptability to piece-square tables the returned array must order pieces by a8, b8 to h8; a7, b7 to h7; to a1, b1 to h1.
-	 * Pieces must be names as "color type" like "black queen".
+	 * Pieces must be named as "color type" like "black queen".
 	 *
 	 * @return array
 	 */
@@ -169,6 +169,17 @@ class ChessPhp implements RuleEngine
 			}
 			return $piece;
 		}, self::SQUARE_NAMES);
+	}
+
+	/**
+	 * Gets all possible moves that captures a piece.
+	 *
+	 * @return array
+	 */
+	public function getCapturedMoves()
+	{
+		$moves = $this->engine->moves(["verbose" => true]);
+		\App\Response::addDebug(json_encode($moves));
 	}
 
 	/**
