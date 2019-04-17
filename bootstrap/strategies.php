@@ -38,4 +38,12 @@ return [
 
     "alphabeta" => App\Strategy\AlphaBeta::class,
 
+
+    /*
+    | This is a minimax algorithm that also searches all moves that makes a
+    | capture.
+    */
+
+    "contender" => App\Strategy\Contender::class,
+
 ];

@@ -73,7 +73,7 @@ class ChessPhp implements RuleEngine
 	}
 
 	/**
-	 * Gets all possible moves.
+	 * Gets all possible moves in SAN.
 	 *
 	 * @return array
 	 */
@@ -105,7 +105,7 @@ class ChessPhp implements RuleEngine
 	/**
 	 * Gets pieces on board as "color type" like "black queen".
 	 *
-	 * @param array
+	 * @return array
 	 */
 	public function getPieces()
 	{
@@ -122,7 +122,7 @@ class ChessPhp implements RuleEngine
 	/**
 	 * Gets side to move as "white" or "black".
 	 *
-	 * @param string
+	 * @return string
 	 */
 	public function getTurn()
 	{
@@ -172,14 +172,19 @@ class ChessPhp implements RuleEngine
 	}
 
 	/**
-	 * Gets all possible moves that captures a piece.
+	 * Gets all possible moves in SAN that captures a piece.
 	 *
 	 * @return array
 	 */
 	public function getCapturedMoves()
 	{
-		$moves = $this->engine->moves(["verbose" => true]);
-		\App\Response::addDebug(json_encode($moves));
+		return array_values(
+			array_map(function($move) {
+				return $move["san"];
+			}, array_filter($this->engine->moves(["verbose" => true]), function($move) {
+				return array_key_exists("captured", $move);
+			}))
+		);
 	}
 
 	/**

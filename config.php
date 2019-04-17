@@ -29,7 +29,7 @@ return [
 
 	"strategy" => [
 		"name" => "alphabeta",
-		"depth" => 3
+		"depth" => 2
 	],
 
 

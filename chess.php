@@ -1,5 +1,6 @@
 <?php
 
+use Log\Logger;
 use App\Resolver;
 use App\Response;
 use App\GameState;
@@ -10,6 +11,8 @@ require __DIR__ . "/vendor/autoload.php";
 try {
 
 	TimeKeeper::start("Total");
+
+	Logger::clear();
 
 	GameState::set();
 
