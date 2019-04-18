@@ -106,7 +106,6 @@ class Contender implements SearchStrategy
             	$current["turn"] == "white" ?
         		max($current["score"], $this->minimax($depth - 1)) :
         		min($current["score"], $this->minimax($depth - 1));
-            // \Log\Logger::log(str_repeat("\t", $this->depth - $depth) . $move . " " . $current["score"]);
             if ($this->depth == $depth) {
             	$current["move"] = $move;
             	$this->updateBest($current);
