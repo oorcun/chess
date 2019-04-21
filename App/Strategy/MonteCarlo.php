@@ -117,27 +117,19 @@ class MonteCarlo implements SearchStrategy
 			return $evaluation;
 		}
 
-    	$current["move"] = $moves[array_rand($moves)];
-		$this->engine->makeMove($current["move"]);
-
-		$current["score"] = $this->chooseMove($depth + 1);
-
-    	$this->engine->undoMove();
-
-        while ( ! $depth) {
-    		$this->updateBest($current);
-
+        do {
 			if (TimeKeeper::getElapsedTime("Searching") > $this->time) {
+				$current["score"] = $this->evaluator->evaluate();
 				break;
 			}
-
         	$current["move"] = $moves[array_rand($moves)];
 			$this->engine->makeMove($current["move"]);
-
 			$current["score"] = $this->chooseMove($depth + 1);
-
 			$this->engine->undoMove();
-        }
+			if ( ! $depth) {
+				$this->updateBest($current);
+			}
+        } while ( ! $depth);
 
         return $current["score"];
 	}
