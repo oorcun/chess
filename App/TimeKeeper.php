@@ -48,4 +48,15 @@ class TimeKeeper
 	{
 		return self::$times;
 	}
+
+	/**
+	 * Gets the elapsed time corresponding to given key.
+	 *
+	 * @param  string $key
+	 * @return double
+	 */
+	public static function getElapsedTime($key)
+	{
+		return microtime(true) - self::$times[$key]["microtime"];
+	}
 }

@@ -46,8 +46,10 @@ class MaterialEvaluator implements PositionEvaluator
 
 		if ($this->engine->gameOver()) {
 			if ( ! $this->engine->getWinner()) {
+				TimeKeeper::stop("Evaluation");
 				return 0;
 			}
+			TimeKeeper::stop("Evaluation");
 			return $this->engine->getWinner() == "white" ? PHP_INT_MAX : PHP_INT_MIN;
 		}
 

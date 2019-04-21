@@ -106,7 +106,7 @@ $(document).ready(function() {
                 }
 				update_status();
 				$("#spinner").hide();
-				debug(data);
+				// debug(data);
             },
             error: function(data) {
                 alert("Error: " + data.responseText);

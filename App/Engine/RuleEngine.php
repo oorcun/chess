@@ -67,4 +67,11 @@ interface RuleEngine
 	 * @return array
 	 */
 	public function getPiecesByPosition();
+
+	/**
+	 * Gets all possible moves in SAN that captures a piece.
+	 *
+	 * @return array
+	 */
+	public function getCapturedMoves();
 }

@@ -21,15 +21,17 @@ return [
     | Search Strategy
     |--------------------------------------------------------------------------
     |
-    | Search strategy for AI. You can also give its depth as a ply (half move).
-    | If the strategy does not use depth, this value is ignored. All available
-    | search strategy implementations are in strategies.php.
+    | Search strategy for AI. You can also give its depth as a ply (half move)
+    | or its thinking time (in seconds). If the strategy does not use depth or
+    | time, these values are ignored. All available search strategy
+    | implementations are in strategies.php.
     |
     */
 
 	"strategy" => [
 		"name" => "alphabeta",
-		"depth" => 2
+		"depth" => 2,
+        "time" => 25
 	],
 
 

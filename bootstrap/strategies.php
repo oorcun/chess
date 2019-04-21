@@ -46,4 +46,11 @@ return [
 
     "contender" => App\Strategy\Contender::class,
 
+
+    /*
+    | Monte Carlo algorithm that randomly searches the board.
+    */
+
+    "montecarlo" => App\Strategy\MonteCarlo::class,
+
 ];
